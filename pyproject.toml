@@ -1,0 +1,41 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "amltriage"
+version = "0.1.0"
+description = "Illicit-transaction detection on the Elliptic Bitcoin graph under a strict temporal protocol: tree ensembles vs. linear baselines, label-free graph features, alert-budget metrics, SHAP reason codes and drift monitoring."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "pyarrow>=14",
+  "scipy>=1.10",
+  "scikit-learn>=1.3",
+  "lightgbm>=4.0",
+  "xgboost>=2.0",
+  "shap>=0.44",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.5"]
+
+[project.scripts]
+amltriage = "amltriage.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/amltriage"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
